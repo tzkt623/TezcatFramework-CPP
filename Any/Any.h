@@ -2,10 +2,7 @@
 #include <memory>
 #include <typeindex>
 
-/// <summary>
-/// 右值引用和移动语义参数不能加const
-/// 因为需要修改来源的内容来盗取数据
-/// </summary>
+
 class Any
 {
 	struct Container

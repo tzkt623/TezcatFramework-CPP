@@ -9,7 +9,7 @@ using Func = std::function<void(const std::string&, int)>;
 
 void test(const std::string& data, int i)
 {
-	std::string str("ÕâÊÇ¸öÈ«¾Öº¯Êý: ");
+	std::string str("ï¿½ï¿½ï¿½Ç¸ï¿½È«ï¿½Öºï¿½ï¿½ï¿½: ");
 	std::cout << str << data << i << std::endl;
 }
 
@@ -17,24 +17,24 @@ class PP
 {
 public:
 	PP() : p(100) {}
-	PP(const PP& other) : name("¿½±´¹¹Ôì")
+	PP(const PP& other) : name("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
 	{
 		std::cout << name << std::endl;
 	}
 
-	PP(PP&& other) : name("ÒÆ¶¯¹¹Ôì")
+	PP(PP&& other) : name("ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½")
 	{
 		std::cout << name << std::endl;
 	}
 
 	~PP()
 	{
-		std::cout << name << "-É¾³ý" << std::endl;
+		std::cout << name << "-É¾ï¿½ï¿½" << std::endl;
 	}
 
 	void test(const std::string& data, int i)
 	{
-		std::string str("ÕâÊÇ¸ö¶ÔÏóÖÐµÄº¯Êý: [");
+		std::string str("ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄºï¿½ï¿½ï¿½: [");
 		std::cout << str << typeid(PP).name() << "]" << data << i << std::endl;
 	}
 
@@ -46,17 +46,17 @@ struct BB
 {
 	BB()
 	{
-		std::cout << "¹¹Ôìº¯Êý" << std::endl;
+		std::cout << "ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½" << std::endl;
 	}
 
 	BB(const BB& other)
 	{
-		std::cout << "¿½±´º¯Êý" << std::endl;
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << std::endl;
 	}
 
 	~BB()
 	{
-		std::cout << "Îö¹¹º¯Êý" << std::endl;
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << std::endl;
 	}
 };
 
@@ -70,7 +70,7 @@ void display1()
 	int i = 10;
 	float f = 3.3333f;
 
-	Any a = std::string("¹þ¹þ¹þ¹þ¹þ");
+	Any a = std::string("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	std::cout << a.cast<std::string>() << std::endl;
 
 	PP c;
@@ -81,11 +81,11 @@ void display1()
 	std::cout << a.cast<int>() << std::endl;
 
 	a = &test;
-	a.cast<F>()("ÎÔ²Û!!", 30);
+	a.cast<F>()("ï¿½Ô²ï¿½!!", 30);
 
 	PP p;
 	a = Func(std::bind(&PP::test, &p, std::placeholders::_1, std::placeholders::_2));
-	a.cast<Func>()("ÎÔÁË¸ö´ó²Û!!", 40);
+	a.cast<Func>()("ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½!!", 40);
 }
 
 void display2()
