@@ -111,6 +111,8 @@ MyCoroutine<int> create()
 	co_yield result;
 	co_yield 777;
 
+	std::cout << m << std::endl;
+
 	//如果你只是想等待一帧,可以直接用std的类
 	//这里co_await得到的值为上面的777
 	co_await std::suspend_always();

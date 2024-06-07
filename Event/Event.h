@@ -40,12 +40,12 @@ public:
 		return false;
 	}
 
-	void dispatch(Args... args)
+	void dispatch(Args&&... args)
 	{
 		for (auto d : m_List)
 		{
-			//			d->callback(std::forward<Args>(args)...);
-			d->callback(args...);
+			d->callback(std::forward<Args>(args)...);
+			//d->callback(args...);
 		}
 	}
 

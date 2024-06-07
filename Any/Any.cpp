@@ -9,7 +9,7 @@ using Func = std::function<void(const std::string&, int)>;
 
 void test(const std::string& data, int i)
 {
-	std::string str("���Ǹ�ȫ�ֺ���: ");
+	std::string str("测试");
 	std::cout << str << data << i << std::endl;
 }
 
@@ -17,12 +17,12 @@ class PP
 {
 public:
 	PP() : p(100) {}
-	PP(const PP& other) : name("��������")
+	PP(const PP& other) : name("拷贝构造函数调用")
 	{
 		std::cout << name << std::endl;
 	}
 
-	PP(PP&& other) : name("�ƶ�����")
+	PP(PP&& other) : name("移动构造函数调用")
 	{
 		std::cout << name << std::endl;
 	}
