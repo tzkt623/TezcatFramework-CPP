@@ -1,5 +1,3 @@
 #pragma once
-class Thread
-{
-};
 
+#include "../Utility/Utility.h"

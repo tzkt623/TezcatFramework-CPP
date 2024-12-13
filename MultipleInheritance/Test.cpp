@@ -1,21 +1,16 @@
 #include "Test.h"
-#include <memory>
-#include <vector>
-#include <iostream>
-
-#define Log(x) std::cout << x << std::endl;
 
 class A
 {
 public:
-	A()
-	{
-		Log("A Build");
-	}
-	virtual ~A()
-	{
-		Log("A Delete");
-	}
+    A()
+    {
+        MY_CONSOLE_WRITE_LINE("A Build");
+    }
+    virtual ~A()
+    {
+        MY_CONSOLE_WRITE_LINE("A Delete");
+    }
 
 private:
 
@@ -24,14 +19,14 @@ private:
 class B
 {
 public:
-	B()
-	{
-		Log("B Build");
-	}
-	virtual ~B()
-	{
-		Log("B Delete");
-	}
+    B()
+    {
+        MY_CONSOLE_WRITE_LINE("B Build");
+    }
+    virtual ~B()
+    {
+        MY_CONSOLE_WRITE_LINE("B Delete");
+    }
 
 private:
 
@@ -40,14 +35,14 @@ private:
 class AB : public A, public B
 {
 public:
-	AB()
-	{
-		Log("AB Build");
-	}
-	~AB()
-	{
-		Log("AB Delete");
-	}
+    AB()
+    {
+        MY_CONSOLE_WRITE_LINE("AB Build");
+    }
+    ~AB()
+    {
+        MY_CONSOLE_WRITE_LINE("AB Delete");
+    }
 
 private:
 
@@ -57,24 +52,24 @@ private:
 int main()
 {
 
-	std::vector<std::shared_ptr<A>> a_array;
-	std::vector<std::shared_ptr<B>> b_array;
-	std::vector<std::shared_ptr<AB>> ab_array;
+    std::vector<std::shared_ptr<A>> a_array;
+    std::vector<std::shared_ptr<B>> b_array;
+    std::vector<std::shared_ptr<AB>> ab_array;
 
-	ab_array.emplace_back(new AB());
-	ab_array.emplace_back(new AB());
-	a_array.emplace_back(ab_array[0]);
-	b_array.emplace_back(ab_array[0]);
+    ab_array.emplace_back(new AB());
+    ab_array.emplace_back(new AB());
+    a_array.emplace_back(ab_array[0]);
+    b_array.emplace_back(ab_array[0]);
 
-	system("pause");
-	ab_array.clear();
+    MY_PAUSE;
+    ab_array.clear();
 
-	system("pause");
-	b_array.clear();
+    MY_PAUSE;
+    b_array.clear();
 
-	system("pause");
-	a_array.clear();
+    MY_PAUSE;
+    a_array.clear();
 
-	system("pause");
-	return 0;
+    MY_PAUSE;
+    return 0;
 }

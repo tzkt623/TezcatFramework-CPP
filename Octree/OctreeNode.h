@@ -7,40 +7,40 @@
 struct OctreeAgent;
 class OctreeNode
 {
-	friend struct OctreeAgent;
+    friend struct OctreeAgent;
 public:
-	OctreeNode();
-	OctreeNode(OctreeNode* parent, const OctPoint& point);
+    OctreeNode();
+    OctreeNode(OctreeNode* parent, const OctPoint& point);
 
-	void addAgent(OctreeAgent* agent);
+    void addAgent(OctreeAgent* agent);
 
-	OctPoint getPoint()
-	{
-		return mOctPoint;
-	}
+    OctPoint getPoint()
+    {
+        return mOctPoint;
+    }
 
-	int getLayer()
-	{
-		return mLayerIndex;
-	}
+    int getLayer()
+    {
+        return mLayerIndex;
+    }
 
-	void update()
-	{
+    void update()
+    {
 
-	}
+    }
 
-	void log();
+    void log();
 
-	void logBoundingBox();
+    void logBoundingBox();
 
-	OctreeAgentList& getObjects() { return mObjects; }
+    OctreeAgentList& getObjects() { return mObjects; }
 
 protected:
-	OctPoint mOctPoint;
-	int mLayerIndex;
-	OctreeNode* mParent;
-	BoundingBox mBoundingBox;
-	OctreeNode* mChildren[8];
-	OctreeAgentList mObjects;
+    OctPoint mOctPoint;
+    int mLayerIndex;
+    OctreeNode* mParent;
+    BoundingBox mBoundingBox;
+    OctreeNode* mChildren[8];
+    OctreeAgentList mObjects;
 };
 

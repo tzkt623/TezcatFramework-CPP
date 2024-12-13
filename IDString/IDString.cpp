@@ -10,39 +10,40 @@ using MyUniform2 = IDString<Uniform2>;
 
 int main()
 {
-	MyUniform1::UMap<int> map;
+    MyUniform1::UMap<int> map;
 
-	MyUniform1 str1("uniform");
-	MyUniform1 str2("vec3");
-	std::cout << (str1 == str2) << std::endl;
-	std::cout << str1 << std::endl;
-	std::cout << str2 << std::endl;
+    MyUniform1 str1("uniform");
+    MyUniform1 str2("vec3");
 
- 	map.try_emplace("uniform", 1);
- 	map.try_emplace("sampler2D", 2);
- 	map.try_emplace(str1, 3);
- 	map.try_emplace(str2, 4);
+    MY_CONSOLE_WRITE_LINE((str1 == str2));
+    MY_CONSOLE_WRITE_LINE(str1);
+    MY_CONSOLE_WRITE_LINE(str2);
+
+    map.try_emplace("uniform", 1);
+    map.try_emplace("sampler2D", 2);
+    map.try_emplace(str1, 3);
+    map.try_emplace(str2, 4);
+
+    MY_CONSOLE_WRITE_LINE(map.size());
+    MY_CONSOLE_WRITE_LINE((map.find("uniform") != map.end()));
+    MY_CONSOLE_WRITE_LINE(map[str1]);
 
 
-	std::cout << map.size() << std::endl;
-	std::cout << (map.find("uniform") != map.end()) << std::endl;
-	std::cout << map[str1] << std::endl;
 
+    {
+        str2 = "hahaha";
+    }
+    MY_CONSOLE_WRITE_LINE(str2);
 
-	{
-		str2 = "hahaha";
-	}
-	std::cout << str2 << std::endl;
+    {
+        str1 = std::string("ooooooo");
+    }
+    MY_CONSOLE_WRITE_LINE(str1);
 
-	{
-		str1 = std::string("ooooooo");
-	}
-	std::cout << str1 << std::endl;
+    MyUniform2 str21("vec4");
+    MyUniform2 str22("vec3");
 
-	MyUniform2 str21("vec4");
-	MyUniform2 str22("vec3");
+    MY_PAUSE;
 
-	system("pause");
-
-	return 0;
+    return 0;
 }

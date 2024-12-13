@@ -6,18 +6,18 @@ class OctreeAgentList;
 class OctreeNode;
 struct OctreeAgent
 {
-	OctreeAgent* preAgent = nullptr;
-	OctreeAgent* nextAgent = nullptr;
+    OctreeAgent* preAgent = nullptr;
+    OctreeAgent* nextAgent = nullptr;
 
-	BoundingBox boundingBox;
-	OctreeNode* hostNode = nullptr;
+    BoundingBox boundingBox;
+    OctreeNode* hostNode = nullptr;
 
-	~OctreeAgent();
+    ~OctreeAgent();
 
-	void update();
+    void update();
 
-	void removeSelf();
+    void removeSelf();
 
-	void forearchPossible(const std::function<void(OctreeAgent*)>& function);
+    void forearchPossible(const std::function<void(OctreeAgent*)>& function);
 };
 

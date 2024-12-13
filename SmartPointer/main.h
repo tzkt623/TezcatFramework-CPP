@@ -1,28 +1,25 @@
 #pragma once
 
-#include <memory>
-#include <iostream>
-#include <vector>
-#include <unordered_map>
+#include "../Utility/Utility.h"
 
 class Test1
 {
 public:
-	Test1() {}
-	virtual ~Test1() {};
+    Test1() {}
+    virtual ~Test1() {};
 
-	virtual void test() = 0;
+    virtual void test() = 0;
 
-	int x = 5;
+    int x = 5;
 };
 
 class ITest
 {
 public:
-	ITest() {}
-	virtual ~ITest() {}
+    ITest() {}
+    virtual ~ITest() {}
 
-	virtual void show() = 0;
+    virtual void show() = 0;
 
 };
 
@@ -30,18 +27,18 @@ public:
 class Test2 : public Test1, public ITest
 {
 public:
-	Test2() {}
-	virtual ~Test2() {}
+    Test2() {}
+    virtual ~Test2() {}
 
-	void show() override
-	{
-		std::cout << x << std::endl;
-	}
+    void show() override
+    {
+        std::cout << x << std::endl;
+    }
 
-	void test() override
-	{
+    void test() override
+    {
 
-	}
+    }
 
 private:
 
