@@ -2,6 +2,7 @@
 
 #include <string>
 #include <string_view>
+#include <format>
 
 #include <vector>
 #include <array>
@@ -25,12 +26,14 @@
 #include <thread>
 #include <condition_variable>
 
+#include <concepts>
+
 #include <stdint.h>
 
 
-#define MY_CONSOLE_ENDL std::cout << std::endl
-#define MY_CONSOLE_WRITE_LINE(X) std::cout << X << std::endl
-#define MY_CONSOLE_WRITE(X) std::cout << X
+#define TEZ_CONSOLE_ENDL std::cout << std::endl
+#define TEZ_CONSOLE_WRITE_LINE(X) std::cout << X << std::endl
+#define TEZ_CONSOLE_WRITE(X) std::cout << X
 
 
-#define MY_PAUSE system("pause")
+#define TEZ_PAUSE system("pause")

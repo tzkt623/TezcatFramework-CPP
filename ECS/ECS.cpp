@@ -14,10 +14,10 @@ int main()
     auto com3 = go->getComponent<Com3>();
     auto com4 = go->getComponent<Com4>();
 
-    MY_CONSOLE_WRITE_LINE("Com1: " << com1 << "|" << com1->getComponentType().name());
-    MY_CONSOLE_WRITE_LINE("Com2: " << com2 << "|" << com2->getComponentType().name());
-    MY_CONSOLE_WRITE_LINE("Com3: " << com3 << "|" << com3->getComponentType().name());
-    MY_CONSOLE_WRITE_LINE("Com4: " << com4 << "|" << com4->getComponentType().name());
+    TEZ_CONSOLE_WRITE_LINE("Com1: " << com1 << "|" << com1->getComponentType().name());
+    TEZ_CONSOLE_WRITE_LINE("Com2: " << com2 << "|" << com2->getComponentType().name());
+    TEZ_CONSOLE_WRITE_LINE("Com3: " << com3 << "|" << com3->getComponentType().name());
+    TEZ_CONSOLE_WRITE_LINE("Com4: " << com4 << "|" << com4->getComponentType().name());
 
-    MY_PAUSE;
+    TEZ_PAUSE;
 }

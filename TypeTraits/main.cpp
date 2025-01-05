@@ -21,8 +21,8 @@ struct is_int : public is_int_helper<std::remove_cv_t<T>>
 
 int main()
 {
-    MY_CONSOLE_WRITE_LINE(is_int<int>::value);
-    MY_CONSOLE_WRITE_LINE(is_int<float>::value);
+    TEZ_CONSOLE_WRITE_LINE(is_int<int>::value);
+    TEZ_CONSOLE_WRITE_LINE(is_int<float>::value);
 
 
     return 0;

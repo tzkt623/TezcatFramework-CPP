@@ -41,12 +41,12 @@ int main()
     int& c = b;
     int&& d = 5;
 
-    MY_CONSOLE_WRITE_LINE(function_return_value_category<decltype((b))>::value);
-    MY_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f1())>::value);
-    MY_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f2())>::value);
-    MY_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f3())>::value);
+    TEZ_CONSOLE_WRITE_LINE(function_return_value_category<decltype((b))>::value);
+    TEZ_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f1())>::value);
+    TEZ_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f2())>::value);
+    TEZ_CONSOLE_WRITE_LINE(function_return_value_category<decltype(f3())>::value);
 
 
-    MY_PAUSE;
+    TEZ_PAUSE;
     return 0;
 }

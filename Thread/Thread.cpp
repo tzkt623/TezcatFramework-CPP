@@ -17,7 +17,7 @@ public:
         {
             std::unique_lock<std::mutex> lock(mu1);
             cv_logic.wait(lock, [] { return vector.empty(); });
-            MY_CONSOLE_WRITE_LINE("Game::update");
+            TEZ_CONSOLE_WRITE_LINE("Game::update");
             vector.push_back(1);
             cv_logic.notify_all();
 
@@ -38,7 +38,7 @@ public:
         {
             std::unique_lock<std::mutex> lock(mu1);
             cv_logic.wait(lock, [] { return !vector.empty(); });
-            MY_CONSOLE_WRITE_LINE("Renderer::update" << vector.size());
+            TEZ_CONSOLE_WRITE_LINE("Renderer::update" << vector.size());
             std::this_thread::sleep_for(std::chrono::seconds(1));
             vector.clear();
             flag = false;
@@ -64,7 +64,7 @@ int main()
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-        MY_CONSOLE_WRITE_LINE("Main::update");
+        TEZ_CONSOLE_WRITE_LINE("Main::update");
     }
 
     return 0;

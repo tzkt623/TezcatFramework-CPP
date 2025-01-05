@@ -42,7 +42,7 @@ struct NodeList
     {
         ~Node()
         {
-            MY_CONSOLE_WRITE_LINE(index << "~Node");
+            TEZ_CONSOLE_WRITE_LINE(index << "~Node");
         }
 
         int index;

@@ -30,26 +30,26 @@ int main()
     my.mCombineID.id0_7 = 1;
     my.mCombineID.id48_63 = 0;
 
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id0_7);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id8_15);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id16_31);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id32_47);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id48_63);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id0_7);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id8_15);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id16_31);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id32_47);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id48_63);
 
-    MY_CONSOLE_WRITE_LINE(my.mID);
+    TEZ_CONSOLE_WRITE_LINE(my.mID);
 
-    MY_CONSOLE_ENDL;
+    TEZ_CONSOLE_ENDL;
 
     my.mCombineID.id0_7 = 0;
     my.mCombineID.id48_63 = 1;
 
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id0_7);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id8_15);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id16_31);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id32_47);
-    MY_CONSOLE_WRITE_LINE(my.mCombineID.id48_63);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id0_7);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id8_15);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id16_31);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id32_47);
+    TEZ_CONSOLE_WRITE_LINE(my.mCombineID.id48_63);
 
-    MY_CONSOLE_ENDL;
+    TEZ_CONSOLE_ENDL;
 
     return 0;
 }

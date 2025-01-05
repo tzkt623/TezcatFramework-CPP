@@ -11,18 +11,18 @@ struct MyCoroutine
 
         std::suspend_always initial_suspend()
         {
-            MY_CONSOLE_WRITE_LINE("initial_suspend");
+            TEZ_CONSOLE_WRITE_LINE("initial_suspend");
             return {};
         }
         std::suspend_never final_suspend() noexcept
         {
-            MY_CONSOLE_WRITE_LINE("final_suspend");
+            TEZ_CONSOLE_WRITE_LINE("final_suspend");
             return {};
         }
 
         void return_void()
         {
-            MY_CONSOLE_WRITE_LINE("return_void");
+            TEZ_CONSOLE_WRITE_LINE("return_void");
         }
 
         // 		void return_value(T value)
@@ -37,14 +37,14 @@ struct MyCoroutine
         {
             //在这里保存你计算好的值
             //或者你也可以在这里计算
-            MY_CONSOLE_WRITE_LINE("yield_value");
+            TEZ_CONSOLE_WRITE_LINE("yield_value");
             this->value = value;
             return { this };
         }
 
         MyCoroutine get_return_object()
         {
-            MY_CONSOLE_WRITE_LINE("get_return_object");
+            TEZ_CONSOLE_WRITE_LINE("get_return_object");
             return { std::coroutine_handle<MyPromise>::from_promise(*this) };
         }
     };
@@ -56,18 +56,18 @@ struct MyCoroutine
 
         constexpr bool await_ready() const noexcept
         {
-            MY_CONSOLE_WRITE_LINE("await_ready");
+            TEZ_CONSOLE_WRITE_LINE("await_ready");
             return false;
         }
 
         constexpr void await_suspend(std::coroutine_handle<> handle) const noexcept
         {
-            MY_CONSOLE_WRITE_LINE("await_suspend");
+            TEZ_CONSOLE_WRITE_LINE("await_suspend");
         }
 
         T await_resume() const noexcept
         {
-            MY_CONSOLE_WRITE_LINE("await_resume");
+            TEZ_CONSOLE_WRITE_LINE("await_resume");
             return promise->value;
         }
     };
@@ -152,14 +152,14 @@ void test()
 // 
 // 	auto cor2 = creator();
     auto cor2 = create();
-    MY_CONSOLE_WRITE_LINE("----------------------");
+    TEZ_CONSOLE_WRITE_LINE("----------------------");
 
     for (int i = 0; i < 6; i++)
     {
         if (cor2.next())
         {
             std::cout << cor2.getValue() << std::endl;
-            MY_CONSOLE_WRITE_LINE("----------------------");
+            TEZ_CONSOLE_WRITE_LINE("----------------------");
         }
     }
 }
@@ -168,6 +168,6 @@ int main()
 {
     test();
 
-    MY_PAUSE;
+    TEZ_PAUSE;
     return 0;
 }

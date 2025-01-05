@@ -27,24 +27,24 @@ void sentinelTest()
     std::string hello("Hello world test split");
     for (auto x : std::ranges::subrange(hello.begin(), hello.end()))
     {
-        MY_CONSOLE_WRITE(x);
+        TEZ_CONSOLE_WRITE(x);
     }
 
-    MY_CONSOLE_ENDL;
+    TEZ_CONSOLE_ENDL;
 
     for (auto x : std::ranges::subrange(std::ranges::find(hello, 'e'), std::ranges::find(hello, 's')))
     {
-        MY_CONSOLE_WRITE(x);
+        TEZ_CONSOLE_WRITE(x);
     }
 
-    MY_CONSOLE_ENDL;
+    TEZ_CONSOLE_ENDL;
 }
 
 int main()
 {
     sentinelTest();
 
-    MY_PAUSE;
+    TEZ_PAUSE;
 
     return 0;
 }

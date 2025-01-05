@@ -23,14 +23,14 @@ int main()
         v3 = std::string_view(content.c_str() + 7, 18);
         v4 = std::string_view(content.c_str() + 28, 4);
 
-        MY_CONSOLE_WRITE_LINE("v1: " << v1);
-        MY_CONSOLE_WRITE_LINE("v2: " << v2);
-        MY_CONSOLE_WRITE_LINE("v3: " << v3);
-        MY_CONSOLE_WRITE_LINE("v4: " << v4);
+        TEZ_CONSOLE_WRITE_LINE("v1: " << v1);
+        TEZ_CONSOLE_WRITE_LINE("v2: " << v2);
+        TEZ_CONSOLE_WRITE_LINE("v3: " << v3);
+        TEZ_CONSOLE_WRITE_LINE("v4: " << v4);
 
-        MY_CONSOLE_WRITE_LINE("v1==v2: " << (v1 == v2));
-        MY_CONSOLE_WRITE_LINE("v1==v3: " << (v1 == v3));
-        MY_CONSOLE_WRITE_LINE("v2==v4: " << (v2 == v4));
+        TEZ_CONSOLE_WRITE_LINE("v1==v2: " << (v1 == v2));
+        TEZ_CONSOLE_WRITE_LINE("v1==v3: " << (v1 == v3));
+        TEZ_CONSOLE_WRITE_LINE("v2==v4: " << (v2 == v4));
 
         map.emplace(v1, "i am v1");
         map.emplace(v2, "i am v2");
@@ -38,13 +38,13 @@ int main()
         map.emplace(v4, "i am v4");
     }
 
-    MY_CONSOLE_WRITE_LINE("Map Count: " << map.size());
-    MY_CONSOLE_WRITE_LINE("Check with v1: " << map.at(v1));
-    MY_CONSOLE_WRITE_LINE("Check with v2: " << map.at(v2));
-    MY_CONSOLE_WRITE_LINE("Check with v3: " << map.at(v3));
-    MY_CONSOLE_WRITE_LINE("Check with v4: " << map.at(v4));
+    TEZ_CONSOLE_WRITE_LINE("Map Count: " << map.size());
+    TEZ_CONSOLE_WRITE_LINE("Check with v1: " << map.at(v1));
+    TEZ_CONSOLE_WRITE_LINE("Check with v2: " << map.at(v2));
+    TEZ_CONSOLE_WRITE_LINE("Check with v3: " << map.at(v3));
+    TEZ_CONSOLE_WRITE_LINE("Check with v4: " << map.at(v4));
 
-    MY_PAUSE;
+    TEZ_PAUSE;
 
     return 0;
 }

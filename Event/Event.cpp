@@ -7,12 +7,12 @@ class Data
 public:
     Data() : str("DataString"), id(ID++)
     {
-        MY_CONSOLE_WRITE_LINE(id << " : " << "Data Created");
+        TEZ_CONSOLE_WRITE_LINE(id << " : " << "Data Created");
     }
 
     Data(Data& other)
     {
-        MY_CONSOLE_WRITE_LINE(id << " : " << "Data Copy");
+        TEZ_CONSOLE_WRITE_LINE(id << " : " << "Data Copy");
     }
 
     // 	Data(Data&& other) : id(ID++)
@@ -23,7 +23,7 @@ public:
 
     ~Data()
     {
-        MY_CONSOLE_WRITE_LINE(id << " : " << "Data Destroy");
+        TEZ_CONSOLE_WRITE_LINE(id << " : " << "Data Destroy");
     }
 
     int id;
@@ -38,17 +38,17 @@ public:
 
     void funcInt(int x)
     {
-        MY_CONSOLE_WRITE_LINE(x);
+        TEZ_CONSOLE_WRITE_LINE(x);
     }
 
     void funcData(Data data)
     {
-        MY_CONSOLE_WRITE_LINE(data.id << " : " << data.str);
+        TEZ_CONSOLE_WRITE_LINE(data.id << " : " << data.str);
     }
 
     void func3(const Data& data, int i, float* array)
     {
-        MY_CONSOLE_WRITE_LINE(data.id << " : " << array[0] << array[1] << array[2]);
+        TEZ_CONSOLE_WRITE_LINE(data.id << " : " << array[0] << array[1] << array[2]);
     }
 };
 
@@ -87,7 +87,7 @@ int main()
     my.dispatch();
 
 
-    MY_PAUSE;
+    TEZ_PAUSE;
 
     return 0;
 }

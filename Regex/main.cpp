@@ -21,7 +21,7 @@ int main()
     content.append("	float eee = float(1.0);\n");
     //content.append("};");
 
-    std::regex regex_all(R"((?:(\[\w+\(.*\)\])\s*)*(\w+)\s+(\w+)\[?(\d*)\]?([\s\S]*?);)");
+    std::regex regex_all(R"sd((?:(\[\w+\(.*\)\])\s*)*(\w+)\s+(\w+)\[?(\d*)\]?([\s\S]*?);)sd");
     std::regex regex_define(R"((\w+)\s+(\w+)\[?(\d*)\]?[\s\S]*?;)");
     std::regex regex_constraint(R"(\[(\w+\(.*?\))\]\s*)");
     std::regex regex_constraint_name_value(R"((\w+)\((.*)\))");
@@ -78,7 +78,7 @@ int main()
 
     content = std::regex_replace(content, regex_remove_constraint, "");
 
-    MY_CONSOLE_WRITE_LINE(content);
+    TEZ_CONSOLE_WRITE_LINE(content);
 
     return 0;
 }

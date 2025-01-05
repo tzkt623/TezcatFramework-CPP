@@ -7,13 +7,13 @@ using Func = std::function<void(const std::string&, int)>;
 
 F1 f1 = [](std::string msg, int a, float b)
     {
-        MY_CONSOLE_WRITE(msg);
+        TEZ_CONSOLE_WRITE(msg);
         return a + b;
     };
 
 void test(const std::string& data, int i)
 {
-    MY_CONSOLE_WRITE_LINE(data << i);
+    TEZ_CONSOLE_WRITE_LINE(data << i);
 }
 
 class PP
@@ -22,17 +22,17 @@ public:
     PP() : p(100) {}
     PP(const PP& other) : name("copy constructor invoke")
     {
-        MY_CONSOLE_WRITE_LINE(name);
+        TEZ_CONSOLE_WRITE_LINE(name);
     }
 
     PP(PP&& other) noexcept : name("move constructor invoke")
     {
-        MY_CONSOLE_WRITE_LINE(name);
+        TEZ_CONSOLE_WRITE_LINE(name);
     }
 
     ~PP()
     {
-        MY_CONSOLE_WRITE_LINE("deconstructor invoke");
+        TEZ_CONSOLE_WRITE_LINE("deconstructor invoke");
     }
 
     void test(const std::string& data, int i)
@@ -49,17 +49,17 @@ struct BB
 {
     BB()
     {
-        MY_CONSOLE_WRITE_LINE("constructor invoke");
+        TEZ_CONSOLE_WRITE_LINE("constructor invoke");
     }
 
     BB(const BB& other)
     {
-        MY_CONSOLE_WRITE_LINE("copy constructor invoke");
+        TEZ_CONSOLE_WRITE_LINE("copy constructor invoke");
     }
 
     ~BB()
     {
-        MY_CONSOLE_WRITE_LINE("deconstructor invoke");
+        TEZ_CONSOLE_WRITE_LINE("deconstructor invoke");
     }
 };
 
@@ -74,20 +74,20 @@ void display1()
     float f = 3.3333f;
 
     Any a = std::string("hello_world");
-    MY_CONSOLE_WRITE_LINE(a.cast<std::string>());
+    TEZ_CONSOLE_WRITE_LINE(a.cast<std::string>());
 
     PP c;
     a = std::move(c);
-    MY_CONSOLE_WRITE_LINE(a.cast<PP>().p);
+    TEZ_CONSOLE_WRITE_LINE(a.cast<PP>().p);
 
     a = 10;
-    MY_CONSOLE_WRITE_LINE(a.cast<int>());
+    TEZ_CONSOLE_WRITE_LINE(a.cast<int>());
 
     a = &test;
     a.cast<F>()("Function Pointer Invoke!!", 30);
 
     a = f1;
-    MY_CONSOLE_WRITE_LINE(a.cast<F1>()("std::function invoke!! ", 5, 3.5f));
+    TEZ_CONSOLE_WRITE_LINE(a.cast<F1>()("std::function invoke!! ", 5, 3.5f));
 
     PP p;
     a = Func(std::bind(&PP::test, &p, std::placeholders::_1, std::placeholders::_2));
@@ -110,7 +110,7 @@ void display2()
 
     for (auto& a : arrays)
     {
-        MY_CONSOLE_WRITE_LINE(a.toString());
+        TEZ_CONSOLE_WRITE_LINE(a.toString());
     }
 }
 
@@ -119,6 +119,6 @@ int main()
     display1();
     display2();
 
-    MY_PAUSE;
+    TEZ_PAUSE;
     return 0;
 }
