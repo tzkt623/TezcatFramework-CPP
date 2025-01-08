@@ -1,21 +1,14 @@
 #pragma once
-
 #include "../TezConfig.h"
-
-#include <memory>
-#include <concepts>
-#include <type_traits>
-
-#include <iostream>
 
 namespace tezcat
 {
     namespace type_tool
     {
         template<class T>
-        struct PointerDeleter
+        struct Tez_PointerDeleter
         {
-            constexpr PointerDeleter() noexcept = default;
+            constexpr Tez_PointerDeleter() noexcept = default;
 
             void operator()(T* pointer) const noexcept
             {
@@ -25,9 +18,9 @@ namespace tezcat
         };
 
         template<class T>
-        struct PointerDeleter<T[]>
+        struct Tez_PointerDeleter<T[]>
         {
-            constexpr PointerDeleter() noexcept = default;
+            constexpr Tez_PointerDeleter() noexcept = default;
 
             void operator()(T* pointer) const noexcept
             {
@@ -37,58 +30,58 @@ namespace tezcat
         };
 
         template<class T>
-        struct GetDeleter
+        struct Tez_GetDeleter
         {
-            using Deleter = PointerDeleter<T>;
+            using Deleter = typename Tez_PointerDeleter<T>;
         };
 
         template<class T>
-        struct GetDeleter<T[]>
+        struct Tez_GetDeleter<T[]>
         {
-            using Deleter = PointerDeleter<T[]>;
+            using Deleter = typename Tez_PointerDeleter<T[]>;
         };
     }
 
 #pragma region Unique
-    template<class T, class Deleter = type_tool::PointerDeleter<T>>
-    class UniquePointer
+    template<class T, class Deleter = type_tool::Tez_PointerDeleter<T>>
+    class TezUPointer
     {
     public:
         using ElementType = typename std::remove_extent_t<T>;
-        using ElementDeleter = typename type_tool::GetDeleter<ElementType>::Deleter;
+        using ElementDeleter = typename type_tool::Tez_GetDeleter<ElementType>::Deleter;
 
     private:
         template<class U, class UDeleter>
-        friend class UniquePointer;
+        friend class TezUPointer;
 
         ElementType* mPointer{ nullptr };
 
     public:
-        UniquePointer(const UniquePointer& other) = delete;
+        TezUPointer(const TezUPointer& other) = delete;
 
-        UniquePointer()
+        TezUPointer()
         {
 
         }
 
-        UniquePointer(ElementType* pointer) : mPointer(pointer)
+        TezUPointer(ElementType* pointer) : mPointer(pointer)
         {
 
         }
 
-        UniquePointer(UniquePointer&& other) noexcept
+        TezUPointer(TezUPointer&& other) noexcept
         {
             mPointer = std::exchange(other.mPointer, nullptr);
         }
 
         template<class Derived, class DerivedDeleter>
             requires(std::is_convertible_v<Derived, ElementType>)
-        UniquePointer(UniquePointer<Derived, DerivedDeleter>&& other) noexcept
+        TezUPointer(TezUPointer<Derived, DerivedDeleter>&& other) noexcept
         {
             mPointer = static_cast<ElementType*>(std::exchange(other.mPointer, nullptr));
         }
 
-        ~UniquePointer() noexcept
+        ~TezUPointer() noexcept
         {
             ElementDeleter{}(mPointer);
             mPointer = nullptr;
@@ -96,7 +89,7 @@ namespace tezcat
 
         template<class Base, class BaseDeleter>
             requires(std::is_convertible_v<ElementType, Base>)
-        void convertFormBaseClass(UniquePointer<Base, BaseDeleter>&& other) noexcept
+        void convertFormBaseClass(TezUPointer<Base, BaseDeleter>&& other) noexcept
         {
             if (mPointer)
             {
@@ -108,7 +101,7 @@ namespace tezcat
 
         template<class Derived, class DerivedDeleter>
             requires(std::is_convertible_v<Derived, ElementType>)
-        void convertFromDerivedClass(UniquePointer<Derived, DerivedDeleter>&& other) noexcept
+        void convertFromDerivedClass(TezUPointer<Derived, DerivedDeleter>&& other) noexcept
         {
             if (mPointer)
             {
@@ -119,9 +112,9 @@ namespace tezcat
         }
 
     public:
-        UniquePointer& operator=(const UniquePointer& other) = delete;
+        TezUPointer& operator=(const TezUPointer& other) = delete;
 
-        UniquePointer& operator=(UniquePointer&& other) noexcept
+        TezUPointer& operator=(TezUPointer&& other) noexcept
         {
             if (this == &other)
             {
@@ -173,33 +166,33 @@ namespace tezcat
     };
 
     template<class T, class Deleter>
-    class UniquePointer<T[], Deleter>
+    class TezUPointer<T[], Deleter>
     {
     public:
         using ElementType = typename std::remove_extent_t<T>;
-        using ElementDeleter = typename type_tool::GetDeleter<ElementType[]>::Deleter;
+        using ElementDeleter = typename type_tool::Tez_GetDeleter<ElementType[]>::Deleter;
 
     private:
         template<class U, class UDeleter>
-        friend class UniquePointer;
+        friend class TezUPointer;
 
         ElementType* mPointer{ nullptr };
 
     public:
-        UniquePointer(const UniquePointer& other) = delete;
+        TezUPointer(const TezUPointer& other) = delete;
 
-        UniquePointer() noexcept
+        TezUPointer() noexcept
         {
 
         }
 
-        UniquePointer(ElementType* pointer) noexcept
+        TezUPointer(ElementType* pointer) noexcept
             : mPointer(pointer)
         {
 
         }
 
-        UniquePointer(UniquePointer&& other) noexcept
+        TezUPointer(TezUPointer&& other) noexcept
         {
             mPointer = std::exchange(other.mPointer, nullptr);
         }
@@ -209,12 +202,12 @@ namespace tezcat
         /// </summary>
         template<class Derived, class DerivedDeleter>
         requires (std::is_convertible_v<Derived, ElementType>)
-        UniquePointer(UniquePointer<Derived[], DerivedDeleter>&& other) noexcept
+        TezUPointer(TezUPointer<Derived[], DerivedDeleter>&& other) noexcept
         {
-            mPointer = dynamic_cast<ElementType*>(std::exchange(other.mElement, nullptr));
+            mPointer = static_cast<ElementType*>(std::exchange(other.mElement, nullptr));
         }
 
-        ~UniquePointer() noexcept
+        ~TezUPointer() noexcept
         {
             ElementDeleter{}(mPointer);
             mPointer = nullptr;
@@ -222,7 +215,7 @@ namespace tezcat
 
         template<class Base, class BaseDeleter>
             requires(std::is_convertible_v<ElementType, Base>)
-        void convertFormBaseClass(UniquePointer<Base, BaseDeleter>&& other) noexcept
+        void convertFormBaseClass(TezUPointer<Base, BaseDeleter>&& other) noexcept
         {
             if (mPointer)
             {
@@ -234,7 +227,7 @@ namespace tezcat
 
         template<class Derived, class DerivedDeleter>
             requires(std::is_convertible_v<Derived, ElementType>)
-        void convertFromDerivedClass(UniquePointer<Derived, DerivedDeleter>&& other) noexcept
+        void convertFromDerivedClass(TezUPointer<Derived, DerivedDeleter>&& other) noexcept
         {
             if (mPointer)
             {
@@ -245,9 +238,9 @@ namespace tezcat
         }
 
     public:
-        UniquePointer& operator=(const UniquePointer& other) = delete;
+        TezUPointer& operator=(const TezUPointer& other) = delete;
 
-        UniquePointer& operator=(UniquePointer&& other) noexcept
+        TezUPointer& operator=(TezUPointer&& other) noexcept
         {
             if (this == &other)
             {
@@ -303,26 +296,26 @@ namespace tezcat
 
 #pragma region Shared
     template<class T>
-    class WeakPointer;
+    class TezWPointer;
 
-    struct SharedPointerBaseMetaData
+    struct Tez_SharedPointerBaseMetaData
     {
         int32_t mRefrenceCount{ 0 };
         int32_t mWeakRefrenceCount{ 0 };
         void* mPointer{ nullptr };
 
 
-        SharedPointerBaseMetaData() = default;
-        virtual ~SharedPointerBaseMetaData() = default;
+        Tez_SharedPointerBaseMetaData() = default;
+        virtual ~Tez_SharedPointerBaseMetaData() = default;
 
-        SharedPointerBaseMetaData(const SharedPointerBaseMetaData&) = delete;
-        SharedPointerBaseMetaData(SharedPointerBaseMetaData&&) = delete;
+        Tez_SharedPointerBaseMetaData(const Tez_SharedPointerBaseMetaData&) = delete;
+        Tez_SharedPointerBaseMetaData(Tez_SharedPointerBaseMetaData&&) = delete;
 
         virtual void closeSharedPointer() = 0;
         virtual void closeWeakPointer() = 0;
     };
 
-    struct SharedPointerDefaultMetaData : SharedPointerBaseMetaData
+    struct Tez_SharedPointerDefaultMetaData : Tez_SharedPointerBaseMetaData
     {
         virtual void closeSharedPointer() override final
         {
@@ -334,29 +327,29 @@ namespace tezcat
 
         }
 
-        static SharedPointerBaseMetaData* getInstacne()
+        static Tez_SharedPointerBaseMetaData* getInstacne()
         {
-            static SharedPointerDefaultMetaData instance;
+            static Tez_SharedPointerDefaultMetaData instance;
             //std::cout << "SharedPointerMetaData Instacne\n";
             return &instance;
         }
 
     private:
-        using SharedPointerBaseMetaData::SharedPointerBaseMetaData;
-        SharedPointerDefaultMetaData() {}
-        virtual ~SharedPointerDefaultMetaData() {}
+        using Tez_SharedPointerBaseMetaData::Tez_SharedPointerBaseMetaData;
+        Tez_SharedPointerDefaultMetaData() {}
+        virtual ~Tez_SharedPointerDefaultMetaData() {}
     };
 
     template<class T, class Deleter>
-    struct SharedPointerMetaData : public SharedPointerBaseMetaData
+    struct Tez_SharedPointerMetaData : public Tez_SharedPointerBaseMetaData
     {
-        using SharedPointerBaseMetaData::SharedPointerBaseMetaData;
+        using Tez_SharedPointerBaseMetaData::Tez_SharedPointerBaseMetaData;
 
-        SharedPointerMetaData() = default;
-        virtual ~SharedPointerMetaData() = default;
+        Tez_SharedPointerMetaData() = default;
+        virtual ~Tez_SharedPointerMetaData() = default;
 
-        SharedPointerMetaData(const SharedPointerMetaData&) = delete;
-        SharedPointerMetaData(SharedPointerMetaData&&) = delete;
+        Tez_SharedPointerMetaData(const Tez_SharedPointerMetaData&) = delete;
+        Tez_SharedPointerMetaData(Tez_SharedPointerMetaData&&) = delete;
 
         virtual void closeSharedPointer() override
         {
@@ -393,55 +386,55 @@ namespace tezcat
     };
 
     template<class T>
-    class SharedPointer
+    class TezSPointer
     {
     public:
         using ElementType = typename std::remove_extent_t<T>;
-        using ElementDeleter = typename type_tool::GetDeleter<ElementType>::Deleter;
+        using ElementDeleter = typename type_tool::Tez_GetDeleter<ElementType>::Deleter;
 
     private:
         template<class U>
-        friend class SharedPointer;
+        friend class TezSPointer;
 
         template<class U>
-        friend class WeakPointer;
+        friend class TezWPointer;
 
-        SharedPointerBaseMetaData* mMetaData{ nullptr };
+        Tez_SharedPointerBaseMetaData* mMetaData{ nullptr };
 
     public:
-        SharedPointer()
-            : mMetaData(SharedPointerDefaultMetaData::getInstacne())
+        TezSPointer()
+            : mMetaData(Tez_SharedPointerDefaultMetaData::getInstacne())
         {
 
         }
 
-        SharedPointer(ElementType* ptr)
-            : mMetaData(new SharedPointerMetaData<ElementType, ElementDeleter>())
+        TezSPointer(ElementType* ptr)
+            : mMetaData(new Tez_SharedPointerMetaData<ElementType, ElementDeleter>())
         {
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
         }
 
-        SharedPointer(const SharedPointer& other)
+        TezSPointer(const TezSPointer& other)
         {
             mMetaData = other.mMetaData;
             mMetaData->mRefrenceCount++;
         }
 
-        SharedPointer(SharedPointer&& other) noexcept
+        TezSPointer(TezSPointer&& other) noexcept
         {
             mMetaData = other.mMetaData;
             other.reset();
         }
 
-        ~SharedPointer() noexcept
+        ~TezSPointer() noexcept
         {
             mMetaData->closeSharedPointer();
             mMetaData = nullptr;
         }
 
     public:
-        SharedPointer& operator=(const SharedPointer& other) noexcept
+        TezSPointer& operator=(const TezSPointer& other) noexcept
         {
             if (this == &other)
             {
@@ -456,7 +449,7 @@ namespace tezcat
             return *this;
         }
 
-        SharedPointer& operator=(SharedPointer&& other) noexcept
+        TezSPointer& operator=(TezSPointer&& other) noexcept
         {
             if (this == &other)
             {
@@ -486,7 +479,7 @@ namespace tezcat
         */
         template<class Base>
             requires(std::is_convertible_v<ElementType, Base>)
-        void convertFromBaseClass(const SharedPointer<Base>& other) noexcept
+        void convertFromBaseClass(const TezSPointer<Base>& other) noexcept
         {
             mMetaData->closeSharedPointer();
             mMetaData = other.mMetaData;
@@ -495,7 +488,7 @@ namespace tezcat
 
         template<class Derived>
             requires(std::is_convertible_v<Derived, ElementType>)
-        void convertFromDerivedClass(const SharedPointer<Derived>& other) noexcept
+        void convertFromDerivedClass(const TezSPointer<Derived>& other) noexcept
         {
             mMetaData->closeSharedPointer();
             mMetaData = other.mMetaData;
@@ -511,14 +504,14 @@ namespace tezcat
         void reset() noexcept
         {
             mMetaData->closeSharedPointer();
-            mMetaData = SharedPointerDefaultMetaData.getInstacne();
+            mMetaData = Tez_SharedPointerDefaultMetaData::getInstacne();
         }
 
         template<class U>
         void reset(U* ptr)
         {
             mMetaData->closeSharedPointer();
-            mMetaData = new SharedPointerMetaData<U, type_tool::GetDeleter<U>::Deleter>();
+            mMetaData = new Tez_SharedPointerMetaData<U, typename type_tool::Tez_GetDeleter<U>::Deleter>();
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
         }
@@ -527,7 +520,7 @@ namespace tezcat
         void reset(U* ptr)
         {
             mMetaData->closeSharedPointer();
-            mMetaData = new SharedPointerMetaData<U, UDeleter>();
+            mMetaData = new Tez_SharedPointerMetaData<U, UDeleter>();
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
         }
@@ -544,45 +537,45 @@ namespace tezcat
     };
 
     template<class T>
-    class SharedPointer<T[]>
+    class TezSPointer<T[]>
     {
     public:
         using ElementType = typename std::remove_extent_t<T>;
-        using ElementDeleter = typename type_tool::GetDeleter<ElementType[]>::Deleter;
+        using ElementDeleter = typename type_tool::Tez_GetDeleter<ElementType[]>::Deleter;
 
     private:
         template<class U>
-        friend class SharedPointer;
+        friend class TezSPointer;
 
         template<class U>
-        friend class WeakPointer;
+        friend class TezWPointer;
 
-        SharedPointerBaseMetaData* mMetaData{ nullptr };
+        Tez_SharedPointerBaseMetaData* mMetaData{ nullptr };
         size_t mArraySize{ 0 };
 
     public:
-        SharedPointer()
-            : mMetaData(SharedPointerDefaultMetaData::getInstacne())
+        TezSPointer()
+            : mMetaData(Tez_SharedPointerDefaultMetaData::getInstacne())
         {
 
         }
 
-        SharedPointer(size_t size, ElementType* ptr)
-            : mMetaData(new SharedPointerMetaData<ElementType, ElementDeleter>())
+        TezSPointer(size_t size, ElementType* ptr)
+            : mMetaData(new Tez_SharedPointerMetaData<ElementType, ElementDeleter>())
         {
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
             mArraySize = size;
         }
 
-        SharedPointer(const SharedPointer& other)
+        TezSPointer(const TezSPointer& other)
         {
             mMetaData = other.mMetaData;
             mMetaData->mRefrenceCount++;
             mArraySize = other.mArraySize;
         }
 
-        SharedPointer(SharedPointer&& other) noexcept
+        TezSPointer(TezSPointer&& other) noexcept
         {
             mMetaData = other.mMetaData;
             mArraySize = other.mArraySize;
@@ -590,7 +583,7 @@ namespace tezcat
             other.reset();
         }
 
-        ~SharedPointer() noexcept
+        ~TezSPointer() noexcept
         {
             mArraySize = 0;
 
@@ -599,7 +592,7 @@ namespace tezcat
         }
 
     public:
-        SharedPointer& operator=(const SharedPointer& other) noexcept
+        TezSPointer& operator=(const TezSPointer& other) noexcept
         {
             if (this == &other)
             {
@@ -616,7 +609,7 @@ namespace tezcat
             return *this;
         }
 
-        SharedPointer& operator=(SharedPointer&& other) noexcept
+        TezSPointer& operator=(TezSPointer&& other) noexcept
         {
             if (this == &other)
             {
@@ -653,7 +646,7 @@ namespace tezcat
     public:
         template<class Base>
             requires(std::is_convertible_v<ElementType, Base>)
-        void convertFromBaseClass(const SharedPointer<Base>& other) noexcept
+        void convertFromBaseClass(const TezSPointer<Base>& other) noexcept
         {
             mMetaData->closeSharedPointer();
             mMetaData = other.mMetaData;
@@ -664,7 +657,7 @@ namespace tezcat
 
         template<class Derived>
             requires(std::is_convertible_v<Derived, ElementType>)
-        void convertFromDerivedClass(const SharedPointer<Derived>& other) noexcept
+        void convertFromDerivedClass(const TezSPointer<Derived>& other) noexcept
         {
             mMetaData->closeSharedPointer();
             mMetaData = other.mMetaData;
@@ -684,7 +677,7 @@ namespace tezcat
         void reset() noexcept
         {
             mMetaData->closeSharedPointer();
-            mMetaData = SharedPointerDefaultMetaData.getInstacne();
+            mMetaData = Tez_SharedPointerDefaultMetaData.getInstacne();
             mArraySize = 0;
         }
 
@@ -692,7 +685,7 @@ namespace tezcat
         void reset(size_t size, U* ptr)
         {
             mMetaData->closeSharedPointer();
-            mMetaData = new SharedPointerMetaData<U, type_tool::GetDeleter<U[]>::Deleter>();
+            mMetaData = new Tez_SharedPointerMetaData<U, type_tool::Tez_GetDeleter<U[]>::Deleter>();
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
             mArraySize = size;
@@ -702,7 +695,7 @@ namespace tezcat
         void reset(size_t size, U* ptr)
         {
             mMetaData->closeSharedPointer();
-            mMetaData = new SharedPointerMetaData<U, UDeleter>();
+            mMetaData = new Tez_SharedPointerMetaData<U, UDeleter>();
             mMetaData->mPointer = ptr;
             mMetaData->mRefrenceCount = 1;
             mArraySize = size;
@@ -722,43 +715,43 @@ namespace tezcat
 
 #pragma region Weak
     template<class T>
-    class WeakPointer
+    class TezWPointer
     {
-        SharedPointerBaseMetaData* mMetaData{ nullptr };
+        Tez_SharedPointerBaseMetaData* mMetaData{ nullptr };
 
     public:
-        WeakPointer()
-            : mMetaData(SharedPointerDefaultMetaData::getInstacne())
+        TezWPointer()
+            : mMetaData(Tez_SharedPointerDefaultMetaData::getInstacne())
         {
 
         }
 
-        WeakPointer(const SharedPointer<T>& sharedPointer) noexcept
+        TezWPointer(const TezSPointer<T>& sharedPointer) noexcept
         {
             mMetaData = sharedPointer.mMetaData;
             mMetaData->mWeakRefrenceCount++;
         }
 
-        WeakPointer(const WeakPointer<T>& other) noexcept
+        TezWPointer(const TezWPointer<T>& other) noexcept
         {
             mMetaData = other.mMetaData;
             mMetaData->mWeakRefrenceCount++;
         }
 
-        WeakPointer(WeakPointer<T>&& other) noexcept
+        TezWPointer(TezWPointer<T>&& other) noexcept
         {
             mMetaData = other.mMetaData;
             other.reset();
         }
 
-        ~WeakPointer()
+        ~TezWPointer()
         {
             mMetaData->closeWeakPointer();
             mMetaData = nullptr;
         }
 
     public:
-        WeakPointer& operator=(const SharedPointer<T>& sharedPointer) noexcept
+        TezWPointer& operator=(const TezSPointer<T>& sharedPointer) noexcept
         {
             mMetaData->closeWeakPointer();
             mMetaData = sharedPointer.mMetaData;
@@ -767,7 +760,7 @@ namespace tezcat
             return *this;
         }
 
-        WeakPointer& operator=(const WeakPointer<T>& other) noexcept
+        TezWPointer& operator=(const TezWPointer<T>& other) noexcept
         {
             if (this == &other)
             {
@@ -781,7 +774,7 @@ namespace tezcat
             return *this;
         }
 
-        WeakPointer& operator=(WeakPointer<T>&& other) noexcept
+        TezWPointer& operator=(TezWPointer<T>&& other) noexcept
         {
             if (this == &other)
             {
@@ -799,7 +792,7 @@ namespace tezcat
         void reset() noexcept
         {
             mMetaData->closeWeakPointer();
-            mMetaData = SharedPointerDefaultMetaData::getInstacne();
+            mMetaData = Tez_SharedPointerDefaultMetaData::getInstacne();
         }
 
     public:
@@ -816,26 +809,26 @@ namespace tezcat
     };
 
     template<class T>
-    class WeakPointer<T[]>
+    class TezWPointer<T[]>
     {
-        SharedPointerBaseMetaData* mMetaData{ nullptr };
+        Tez_SharedPointerBaseMetaData* mMetaData{ nullptr };
         size_t mArraySize{ 0 };
 
     public:
-        WeakPointer()
-            : mMetaData(SharedPointerDefaultMetaData::getInstacne())
+        TezWPointer()
+            : mMetaData(Tez_SharedPointerDefaultMetaData::getInstacne())
         {
 
         }
 
-        WeakPointer(const SharedPointer<T[]>& sharedPointer) noexcept
+        TezWPointer(const TezSPointer<T[]>& sharedPointer) noexcept
         {
             mMetaData = sharedPointer.mMetaData;
             mMetaData->mWeakRefrenceCount++;
             mArraySize = sharedPointer.mArraySize;
         }
 
-        WeakPointer(const WeakPointer<T[]>& other) noexcept
+        TezWPointer(const TezWPointer<T[]>& other) noexcept
         {
             mMetaData = other.mMetaData;
             mArraySize = other.mArraySize;
@@ -843,7 +836,7 @@ namespace tezcat
             mMetaData->mWeakRefrenceCount++;
         }
 
-        WeakPointer(WeakPointer<T[]>&& other) noexcept
+        TezWPointer(TezWPointer<T[]>&& other) noexcept
         {
             mMetaData = other.mMetaData;
             mArraySize = other.mArraySize;
@@ -851,7 +844,7 @@ namespace tezcat
             other.reset();
         }
 
-        ~WeakPointer()
+        ~TezWPointer()
         {
             mMetaData->closeWeakPointer();
             mArraySize = 0;
@@ -859,7 +852,7 @@ namespace tezcat
         }
 
     public:
-        WeakPointer& operator=(const SharedPointer<T[]>& sharedPointer) noexcept
+        TezWPointer& operator=(const TezSPointer<T[]>& sharedPointer) noexcept
         {
             mMetaData->closeWeakPointer();
             mMetaData = sharedPointer.mMetaData;
@@ -870,7 +863,7 @@ namespace tezcat
             return *this;
         }
 
-        WeakPointer& operator=(const WeakPointer<T[]>& other) noexcept
+        TezWPointer& operator=(const TezWPointer<T[]>& other) noexcept
         {
             if (this == &other)
             {
@@ -886,7 +879,7 @@ namespace tezcat
             return *this;
         }
 
-        WeakPointer& operator=(WeakPointer<T[]>&& other) noexcept
+        TezWPointer& operator=(TezWPointer<T[]>&& other) noexcept
         {
             if (this == &other)
             {
@@ -906,7 +899,7 @@ namespace tezcat
         void reset() noexcept
         {
             mMetaData->closeWeakPointer();
-            mMetaData = SharedPointerDefaultMetaData::getInstacne();
+            mMetaData = Tez_SharedPointerDefaultMetaData::getInstacne();
             mArraySize = 0;
         }
 

@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,12 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\libs\</OutDir>
-    <IntDir>$(SolutionDir)build\int\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\int-$(Configuration)$(Platform)\$(ProjectName)\</IntDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\libs\</OutDir>
-    <IntDir>$(SolutionDir)build\int\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\int-$(Configuration)$(Platform)\$(ProjectName)\</IntDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -128,7 +130,12 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <OutputFile>$(SolutionDir)build\Run-$(Configuration)$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)build\libs-$(Configuration)$(Platform)"
+copy "$(TargetDir)$(ProjectName).lib" "$(SolutionDir)build\libs-$(Configuration)$(Platform)\$(ProjectName).lib"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,21 +157,30 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <OutputFile>$(SolutionDir)build\Run-$(Configuration)$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)build\libs-$(Configuration)$(Platform)"
+copy "$(TargetDir)$(ProjectName).lib" "$(SolutionDir)build\libs-$(Configuration)$(Platform)\$(ProjectName).lib"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Utility\Debug.h" />
+    <ClInclude Include="include\TezCPP.h" />
+    <ClInclude Include="include\TezMacro.h" />
+    <ClInclude Include="include\Utility\TezAny.h" />
+    <ClInclude Include="include\Utility\TezDebug.h" />
+    <ClInclude Include="include\Utility\TezEvent.h" />
+    <ClInclude Include="include\Utility\TezIDString.h" />
     <ClInclude Include="Utility\Log.h" />
-    <ClInclude Include="Memory\Memory.h" />
-    <ClInclude Include="Memory\SmartPointer.h" />
-    <ClInclude Include="TezcatFramework.h" />
-    <ClInclude Include="TezConfig.h" />
-    <ClInclude Include="Object\TezObject.h" />
+    <ClInclude Include="include\Memory\TezMemory.h" />
+    <ClInclude Include="include\Memory\TezSmartPointer.h" />
+    <ClInclude Include="include\TezcatFramework.h" />
+    <ClInclude Include="include\TezConfig.h" />
+    <ClInclude Include="include\Object\TezObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Utility\Debug.cpp" />
-    <ClCompile Include="Memory\Memory.cpp" />
-    <ClCompile Include="Object\TezObject.cpp" />
+    <ClCompile Include="src\Memory\Memory.cpp" />
+    <ClCompile Include="src\Object\TezObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

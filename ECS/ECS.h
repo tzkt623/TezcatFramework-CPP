@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Utility/Utility.h"
+#include "../TezcatFramework/include/TezConfig.h"
+
 
 /*
 * 注意这里有两种type的保存方式

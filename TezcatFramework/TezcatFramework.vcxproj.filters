@@ -15,36 +15,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TezcatFramework.h">
+    <ClInclude Include="include\TezcatFramework.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TezConfig.h">
+    <ClInclude Include="include\TezConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\SmartPointer.h">
+    <ClInclude Include="include\Memory\TezSmartPointer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Object\TezObject.h">
+    <ClInclude Include="include\Object\TezObject.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\Memory.h">
+    <ClInclude Include="include\Memory\TezMemory.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Debug.h">
+    <ClInclude Include="include\Utility\TezDebug.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TezCPP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TezMacro.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utility\TezAny.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utility\TezEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utility\TezIDString.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Object\TezObject.cpp">
+    <ClCompile Include="src\Object\TezObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Memory\Memory.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility\Debug.cpp">
+    <ClCompile Include="src\Memory\Memory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

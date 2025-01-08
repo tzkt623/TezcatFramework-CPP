@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Utility/Utility.h"
+#include "../TezcatFramework/include/TezConfig.h"
+
 
 using OctPointType = unsigned char;
 

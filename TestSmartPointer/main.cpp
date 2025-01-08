@@ -1,8 +1,7 @@
 #define TEZCAT_DYNAMIC_LIB
 //#define TEZCAT_STATIC_LIB 1
 
-#include "../TezcatFramework/Memory/SmartPointer.h"
-#include "../Utility/Utility.h"
+#include "../TezcatFramework/include/TezcatFramework.h"
 
 
 using namespace tezcat;
@@ -38,23 +37,22 @@ public:
 int main()
 {
     {
-        UniquePointer<T1> a(new T1("A", 87));
-        TEZ_CONSOLE_WRITE_LINE(a->name);
-        UniquePointer<T1> b = std::move(a);
-        //TEZ_CONSOLE_WRITE_LINE(a->name);
-        TEZ_CONSOLE_WRITE_LINE(b->name);
+        TezUPointer<T1> a(new T1("A", 87));
+        TEZ_LOG("name: {}", a->name);
+        TezUPointer<T1> b = std::move(a);
+        TEZ_LOG("name: {}", b->name);
 
-        UniquePointer<T1> c(new T1("C", 324));
-        UniquePointer<T1> d(new T1("D", 5345));
+        TezUPointer<T1> c(new T1("C", 324));
+        TezUPointer<T1> d(new T1("D", 5345));
 
-        std::vector<UniquePointer<Base>> baseVector;
+        std::vector<TezUPointer<Base>> baseVector;
 
         baseVector.push_back(std::move(c));
         baseVector.push_back(std::move(d));
 
         for (auto& p : baseVector)
         {
-            UniquePointer<T1> p2;
+            TezUPointer<T1> p2;
             p2.convertFormBaseClass(std::move(p));
 
             TEZ_CONSOLE_WRITE_LINE(p2->name);
@@ -62,36 +60,32 @@ int main()
         }
 
         //c = d;
-        UniquePointer<T1> e(new T1("E", 5345));
-        UniquePointer<Base> bA = std::move(e);
+        TezUPointer<T1> e(new T1("E", 5345));
+        TezUPointer<Base> bA = std::move(e);
 
-        UniquePointer<Base> bB(new T1("bB", 5345));
-        //UniquePointer<T1> f = std::move(bB);
-        UniquePointer<T1> f;
+        TezUPointer<Base> bB(new T1("bB", 5345));
+        //TezUPointer<T1> f = std::move(bB);
+        TezUPointer<T1> f;
         f.convertFormBaseClass(std::move(bB));
         TEZ_CONSOLE_WRITE_LINE(f->name);
     }
 
     {
+        TezSPointer<T1> sA = TezSPointer<T1>(new T1("sA", 454));
+        TezSPointer<T1> sB = sA;
+        TezSPointer<T1> sC(new T1("sC", 35354));
+        TezSPointer<int> sE;
 
-    }
-
-    {
-        SharedPointer<T1> sA = SharedPointer<T1>(new T1("sA", 454));
-        SharedPointer<T1> sB = sA;
-        SharedPointer<T1> sC(new T1("sC", 35354));
-        SharedPointer<int> sE;
-
-        SharedPointer<Base> bA;
+        TezSPointer<Base> bA;
         bA.convertFromDerivedClass(sB);
 
-        SharedPointer<T1> sD;
+        TezSPointer<T1> sD;
         sD.convertFromBaseClass(bA);
 
-        WeakPointer<T1> wA(sA);
-        WeakPointer<T1> wB;
-        WeakPointer<T1> wC(wA);
-        WeakPointer<T1> wD(std::move(wA));
+        TezWPointer<T1> wA(sA);
+        TezWPointer<T1> wB;
+        TezWPointer<T1> wC(wA);
+        TezWPointer<T1> wD(std::move(wA));
 
         if (wA.lock())
         {
@@ -122,12 +116,12 @@ int main()
     }
 
     {
-        SharedPointer<T1[]> saA(2, new T1[2]{ {"saA00", 0}, {"saA01", 1}});
-        SharedPointer<T1[]> saB = saA;
+        TezSPointer<T1[]> saA(2, new T1[2]{ {"saA00", 0}, {"saA01", 1}});
+        TezSPointer<T1[]> saB = saA;
 
         TEZ_CONSOLE_WRITE_LINE(saA[1].name);
 
-        WeakPointer<T1[]> wA(saA);
+        TezWPointer<T1[]> wA(saA);
         if (wA.lock())
         {
             TEZ_CONSOLE_WRITE_LINE(wA[0].name);

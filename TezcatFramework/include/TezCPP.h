@@ -3,12 +3,12 @@
 #include <string>
 #include <string_view>
 #include <format>
+#include <charconv>
 
 #include <vector>
 #include <array>
 #include <unordered_map>
 #include <unordered_set>
-#include <utility>
 
 #include <ranges>
 #include <ostream>
@@ -18,7 +18,11 @@
 
 #include <memory>
 #include <typeindex>
+#include <type_traits>
 #include <functional>
+#include <concepts>
+#include <utility>
+#include <source_location>
 
 #include <coroutine>
 #include <exception>
@@ -26,14 +30,5 @@
 #include <thread>
 #include <condition_variable>
 
-#include <concepts>
-
-#include <stdint.h>
-
-
-#define TEZ_CONSOLE_ENDL std::cout << std::endl
-#define TEZ_CONSOLE_WRITE_LINE(X) std::cout << X << std::endl
-#define TEZ_CONSOLE_WRITE(X) std::cout << X
-
-
-#define TEZ_PAUSE system("pause")
+#include <cstdint>
+#include <cstdlib>

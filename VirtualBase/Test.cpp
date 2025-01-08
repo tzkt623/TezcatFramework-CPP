@@ -1,5 +1,6 @@
 #include "Test.h"
-#include "../TezcatFramework/TezConfig.h"
+#include "../TezcatFramework/include/TezConfig.h"
+
 
 class IA
 {

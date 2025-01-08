@@ -1,3 +1,4 @@
 #pragma once
 
-#include "../Utility/Utility.h"
+#include "../TezcatFramework/include/TezConfig.h"
+

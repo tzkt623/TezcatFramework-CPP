@@ -1,5 +1,6 @@
-#include "Any.h"
+#include "../TezcatFramework/include/TezcatFramework.h"
 
+using namespace tezcat;
 
 using F = void(*)(const std::string&, int);
 using F1 = std::function<double(std::string, int, float)>;
@@ -73,7 +74,7 @@ void display1()
     int i = 10;
     float f = 3.3333f;
 
-    Any a = std::string("hello_world");
+    TezAny a = std::string("hello_world");
     TEZ_CONSOLE_WRITE_LINE(a.cast<std::string>());
 
     PP c;
@@ -96,7 +97,7 @@ void display1()
 
 void display2()
 {
-    std::vector<Any> arrays;
+    std::vector<TezAny> arrays;
     arrays.resize(8);
 
     arrays[0] = std::string("hohohohohoho");
