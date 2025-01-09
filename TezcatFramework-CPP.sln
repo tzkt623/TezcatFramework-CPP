@@ -3,37 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Event", "Event\Event.vcxproj", "{E256731E-D040-4CD1-AC65-6BD723262900}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestEvent", "TestEvent\TestEvent.vcxproj", "{E256731E-D040-4CD1-AC65-6BD723262900}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAny", "TestAny\TestAny.vcxproj", "{9007F7C1-33D4-4008-8032-2877639F00BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ECS", "ECS\ECS.vcxproj", "{24207FEE-E37A-45CD-906F-330EAAA02CA1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestECS", "TestECS\TestECS.vcxproj", "{24207FEE-E37A-45CD-906F-330EAAA02CA1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Range", "Range\Range.vcxproj", "{EECAB697-FC4D-4687-A44E-DE9CC2917E99}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRange", "TestRange\TestRange.vcxproj", "{EECAB697-FC4D-4687-A44E-DE9CC2917E99}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultipleInheritance", "MultipleInheritance\MultipleInheritance.vcxproj", "{8ACD6910-C2A2-498E-B8B0-9BAC677CD021}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMultipleInheritance", "TestMultipleInheritance\TestMultipleInheritance.vcxproj", "{8ACD6910-C2A2-498E-B8B0-9BAC677CD021}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StringView", "StringView\StringView.vcxproj", "{0956D36B-2BC6-444E-AA48-08D613C6831D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestStringView", "TestStringView\TestStringView.vcxproj", "{0956D36B-2BC6-444E-AA48-08D613C6831D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IDString", "IDString\IDString.vcxproj", "{34B8CF12-E43C-4C71-BEE0-CA731A6D3701}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestIDString", "TestIDString\TestIDString.vcxproj", "{34B8CF12-E43C-4C71-BEE0-CA731A6D3701}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualBase", "VirtualBase\VirtualBase.vcxproj", "{D0E7B317-9ABE-4A46-BFB9-4E7613C4C4E3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestVirtualBase", "TestVirtualBase\TestVirtualBase.vcxproj", "{D0E7B317-9ABE-4A46-BFB9-4E7613C4C4E3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Coroutine", "Coroutine\Coroutine.vcxproj", "{AA0B9708-9A83-4190-B626-8A8C7AA41DA8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCoroutine", "TestCoroutine\TestCoroutine.vcxproj", "{AA0B9708-9A83-4190-B626-8A8C7AA41DA8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmartPointer", "SmartPointer\SmartPointer.vcxproj", "{704EC966-144B-45AF-8070-4F361CD9EB70}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Octree", "Octree\Octree.vcxproj", "{4DD8DE2C-3084-4D42-A8E0-D7C20DFDDB81}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestOctree", "TestOctree\TestOctree.vcxproj", "{4DD8DE2C-3084-4D42-A8E0-D7C20DFDDB81}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thread", "Thread\Thread.vcxproj", "{2079A2F4-F79E-4C42-B1AA-10AE5FEE2168}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestThread", "TestThread\TestThread.vcxproj", "{2079A2F4-F79E-4C42-B1AA-10AE5FEE2168}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Regex", "Regex\Regex.vcxproj", "{2106A989-5FDE-41DA-95F5-3148C0929520}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRegex", "TestRegex\TestRegex.vcxproj", "{2106A989-5FDE-41DA-95F5-3148C0929520}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CombineID", "CombineID\CombineID.vcxproj", "{53E2CB96-FD3D-47B7-BACF-339B91D50374}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCombineID", "TestCombineID\TestCombineID.vcxproj", "{53E2CB96-FD3D-47B7-BACF-339B91D50374}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Decltpye", "Decltpye\Decltpye.vcxproj", "{9813D486-4615-4B2F-A91B-B0908B6FC7D3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDecltpye", "TestDecltpye\TestDecltpye.vcxproj", "{9813D486-4615-4B2F-A91B-B0908B6FC7D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TypeTraits", "TypeTraits\TypeTraits.vcxproj", "{05A74DC9-73F9-4C85-B8F0-943401E6691A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestTypeTraits", "TestTypeTraits\TestTypeTraits.vcxproj", "{05A74DC9-73F9-4C85-B8F0-943401E6691A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TezcatFramework", "TezcatFramework\TezcatFramework.vcxproj", "{53169757-B03B-4915-9488-C978938032A2}"
 EndProject
