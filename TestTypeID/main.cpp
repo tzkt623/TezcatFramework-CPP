@@ -82,6 +82,11 @@ int main()
 
     TEZ_LOG("size:{}", TezTypeManager::getInfoMap<Component>().size());
 
+    for (auto& pair : TezTypeManager::getInfoMap<Component>())
+    {
+        TEZ_LOG("name: {} hash: {}", pair.first.name(), pair.first.hash_code());
+    }
+
     TEZ_PAUSE;
 
     return 0;

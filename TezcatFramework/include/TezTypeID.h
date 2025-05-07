@@ -18,7 +18,7 @@ namespace tezcat
 
             static auto& getTypeMap()
             {
-                static std::unordered_map<std::string, TezTypeUID> TypeMap;
+                static std::unordered_map<std::type_index, TezTypeUID> TypeMap;
                 return TypeMap;
             }
 
@@ -28,11 +28,12 @@ namespace tezcat
                 return TypeID;
             }
         };
+
     public:
         template<typename Owner, typename T>
         static TezTypeUID registerComponent()
         {
-            auto result = TypeBuilder<Owner>::getTypeMap().try_emplace(typeid(T).name(), 0);
+            auto result = TypeBuilder<Owner>::getTypeMap().try_emplace(typeid(T), 0);
             if (result.second)
             {
                 result.first->second = TypeBuilder<Owner>::getTypeID()++;
@@ -69,6 +70,12 @@ namespace tezcat
 
     //TezTypeUID TezTypeManager::TypeID = 1;
     //std::unordered_map<std::string, TezTypeUID> TezTypeManager::TypeMap;
+
+    //template<typename Owner>
+    //std::unordered_map<std::string, TezTypeUID> TezTypeManager::TypeBuilder<Owner>::TypeMap;
+    //
+    //template<typename Owner>
+    //TezTypeUID TezTypeManager::TypeBuilder<Owner>::TypeID;
 
     //-------------------------------------------------------------//
 
