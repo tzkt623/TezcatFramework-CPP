@@ -1,4 +1,4 @@
-#include "../../include/Object/TezObject.h"
+#include "include/Object/TezObject.h"
 
 namespace tezcat
 {
@@ -11,6 +11,4 @@ namespace tezcat
     {
 
     }
-
 }
-

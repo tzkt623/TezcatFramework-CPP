@@ -75,12 +75,12 @@ namespace tezcat {
 
         const char* getStringData() const
         {
-            return sStringWithID[mID].data();
+            return sStringArray[mID]->data();
         }
 
-        const std::string_view& getString() const
+        std::string_view getString() const
         {
-            return sStringWithID[mID];
+            return { *sStringArray[mID] };
         }
 
         IDString& operator=(const char* data)
@@ -125,37 +125,37 @@ namespace tezcat {
 
         operator const char* ()
         {
-            return sStringWithID[mID].data();
+            return sStringArray[mID]->data();
         }
 
     private:
         void init(const std::string& data)
         {
-            auto pair = sIDWithString.try_emplace(data, 0);
-            if (pair.second)
+            auto it = sStringViewMap.find(data);
+            if (it != sStringViewMap.end())
             {
-                mID = sStringWithID.size();
-                pair.first->second = mID;
-                sStringWithID.emplace_back(pair.first->first);
+                mID = it->second;
             }
             else
             {
-                mID = pair.first->second;
+                mID = sStringArray.size();
+                sStringArray.emplace_back(new std::string(data));
+                sStringViewMap.emplace(*sStringArray.back(), mID);
             }
         }
 
         void init(std::string&& data)
         {
-            auto pair = sIDWithString.try_emplace(std::forward<std::string>(data), 0);
-            if (pair.second)
+            auto it = sStringViewMap.find(data);
+            if (it != sStringViewMap.end())
             {
-                mID = sStringWithID.size();
-                pair.first->second = mID;
-                sStringWithID.emplace_back(pair.first->first);
+                mID = it->second;
             }
             else
             {
-                mID = pair.first->second;
+                mID = sStringArray.size();
+                sStringArray.emplace_back(new std::string(std::move(data)));
+                sStringViewMap.emplace(*sStringArray.back(), mID);
             }
         }
 
@@ -163,18 +163,18 @@ namespace tezcat {
         IndexID mID{ 0 };
 
     public:
-        static auto allStringCount() { return sStringWithID.size(); }
+        static auto allStringCount() { return sStringArray.size(); }
 
     private:
-        static std::vector<std::string_view> sStringWithID;
-        static std::unordered_map<std::string, IndexID> sIDWithString;
+        static std::vector<std::string*> sStringArray;
+        static std::unordered_map<std::string_view, IndexID> sStringViewMap;
     };
 
     template<typename Belong>
-    std::unordered_map<std::string, typename IDString<Belong>::IndexID> IDString<Belong>::sIDWithString;
+    std::unordered_map<std::string_view, typename IDString<Belong>::IndexID> IDString<Belong>::sStringViewMap;
 
     template<typename Belong>
-    std::vector<std::string_view> IDString<Belong>::sStringWithID{ std::string_view("v^v TezError IDString ~^~") };
+    std::vector<std::string*> IDString<Belong>::sStringArray{ new std::string("v^v TezError IDString ~^~") };
 
     template<typename Belong>
     std::ostream& operator << (std::ostream& out, IDString<Belong>& idString)
