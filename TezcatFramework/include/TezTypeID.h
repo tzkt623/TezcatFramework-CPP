@@ -4,7 +4,20 @@
 
 namespace tezcat
 {
-    using TezTypeUID = uint32_t;
+    using uint64 = uint64_t;
+
+    union TezTypeID
+    {
+        uint64 UID;
+
+        struct
+        {
+            //low
+            uint64 Index : 32;
+            //hight
+            uint64 Category : 32;
+        };
+    };
 
     class TezTypeManager
     {
@@ -18,25 +31,32 @@ namespace tezcat
 
             static auto& getTypeMap()
             {
-                static std::unordered_map<std::type_index, TezTypeUID> TypeMap;
+                static std::unordered_map<std::type_index, TezTypeID> TypeMap;
                 return TypeMap;
             }
 
             static auto& getTypeID()
             {
-                static TezTypeUID TypeID{ 1 };
+                static uint64 TypeID{ 1 };
                 return TypeID;
+            }
+
+            static const uint64 getCategoryID()
+            {
+                static const uint64 CategoryID{ TezTypeManager::giveCategoryID() };
+                return CategoryID;
             }
         };
 
     public:
         template<typename Owner, typename T>
-        static TezTypeUID registerComponent()
+        static TezTypeID registerComponent()
         {
             auto result = TypeBuilder<Owner>::getTypeMap().try_emplace(typeid(T), 0);
             if (result.second)
             {
-                result.first->second = TypeBuilder<Owner>::getTypeID()++;
+                result.first->second.Index = TypeBuilder<Owner>::getTypeID()++;
+                result.first->second.Category = TypeBuilder<Owner>::getCategoryID();
                 return result.first->second;
             }
             else
@@ -63,12 +83,20 @@ namespace tezcat
         //    }
         //}
 
+        static uint64 giveCategoryID()
+        {
+            return CategoryID++;
+        }
+
     private:
-        //static TezTypeUID TypeID;
+        static uint64 CategoryID;
+
+        //static uint64 TypeID;
         //static std::unordered_map<std::string, TezTypeUID> TypeMap;
     };
+    uint64 TezTypeManager::CategoryID = 1;
 
-    //TezTypeUID TezTypeManager::TypeID = 1;
+    //uint64 TezTypeManager::TypeID = 1;
     //std::unordered_map<std::string, TezTypeUID> TezTypeManager::TypeMap;
 
     //template<typename Owner>
@@ -82,13 +110,26 @@ namespace tezcat
     template<typename Owner, typename T>
     struct TezTypeInfo
     {
-        static const TezTypeUID UID;
         static const std::string_view Name;
+        static const TezTypeID TypeID;
+        static const uint64 getTypeCategory() { return TypeID.Category; }
+        static const uint64 getTypeIndex() { return TypeID.Index; }
+        static const uint64 getTypeUID() { return TypeID.UID; }
     };
 
     template<typename Owner, typename T>
-    const TezTypeUID TezTypeInfo<Owner, T>::UID = TezTypeManager::registerComponent<Owner, T>();
+    const TezTypeID TezTypeInfo<Owner, T>::TypeID = TezTypeManager::registerComponent<Owner, T>();
 
     template<typename Owner, typename T>
     const std::string_view TezTypeInfo<Owner, T>::Name = typeid(T).name();
+
+    bool operator==(const TezTypeID& a, const TezTypeID& b)
+    {
+        return a.UID == b.UID;
+    }
+
+    bool operator!=(const TezTypeID& a, const TezTypeID& b)
+    {
+        return a.UID != b.UID;
+    }
 }
